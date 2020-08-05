@@ -31,17 +31,17 @@ export default class Main extends Component {
     }
   }
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     this.setState({ newRepo: e.target.value, errorColor: '#eee' });
   };
 
-  handleSubmit = async e => {
+  handleSubmit = async (e) => {
     try {
       e.preventDefault();
 
       this.setState({ loading: true });
 
-      const { newRepo, repositories, errorColor } = this.state;
+      const { newRepo, repositories } = this.state;
 
       const response = await api.get(`/repos/${newRepo}`);
 
@@ -49,7 +49,7 @@ export default class Main extends Component {
         name: response.data.full_name,
       };
 
-      repositories.map(repository =>
+      repositories.map((repository) =>
         repository === newRepo ? new Error() : repository
       );
 
@@ -90,7 +90,7 @@ export default class Main extends Component {
           </SubmitButton>
         </Form>
         <List>
-          {repositories.map(repository => (
+          {repositories.map((repository) => (
             <li key={repository.name}>
               <span>{repository.name}</span>
               <Link to={`/repository/${encodeURIComponent(repository.name)}`}>
